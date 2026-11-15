@@ -1,0 +1,26 @@
+name: NIO daily checkin
+
+on:
+  schedule:
+    # UTC 01:03 = UTC+8 09:03，GitHub Actions 定时有 ±15 分钟延迟，天然错峰
+    - cron: "3 1 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run checkin
+        env:
+          NIO_AUTH: ${{ secrets.NIO_AUTH }}
+          NIO_NOTIFY_URL: ${{ secrets.NIO_NOTIFY_URL }}
+          NIO_JITTER: "20"
+        run: python checkin.py --once

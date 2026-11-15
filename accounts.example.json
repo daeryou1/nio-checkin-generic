@@ -1,0 +1,23 @@
+{
+  "accounts": [
+    {
+      "alias": "我的蔚来",
+      "auth": "eyJhbGciOiJSUzI1NiIs...（粘贴 token，可带不带 Bearer 前缀都行）",
+      "ua": "",
+      "hour": 9,
+      "minute": 3,
+      "jitter": 20,
+      "notify_url": "",
+      "notify_daily": true
+    },
+    {
+      "alias": "家人账号",
+      "auth": "eyJ...",
+      "hour": 9,
+      "minute": 15,
+      "jitter": 20,
+      "notify_url": "",
+      "notify_daily": true
+    }
+  ]
+}

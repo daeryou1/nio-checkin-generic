@@ -1,0 +1,41 @@
+services:
+  nio-checkin:
+    build: .
+    image: nio-checkin:local
+    container_name: nio-checkin
+    restart: unless-stopped
+    # 默认桥接网络 (通用环境)。个别软路由/N1 桥接出站被透明代理拦截时,
+    # 把下面两行解开换成 host 网络:
+    # network_mode: host
+    environment:
+      TZ: Asia/Shanghai
+      NIO_DATA_DIR: /app/data
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ./data:/app/data
+      - ./accounts.json:/app/accounts.json:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "2m"
+        max-file: "3"
+
+  # 可选: Web 配置页 (http://127.0.0.1:18923), 浏览器里粘贴 token / 看状态。
+  # 启动: docker compose --profile web up -d
+  # 注意: 映射到 127.0.0.1 仅本机可访问; NAS 局域网使用请自行评估放开绑定。
+  nio-config:
+    profiles: ["web"]
+    build: .
+    container_name: nio-config
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:18923:18923"
+    environment:
+      TZ: Asia/Shanghai
+      NIO_DATA_DIR: /app/data
+    volumes:
+      - ./data:/app/data
+      - ./accounts.json:/app/accounts.json
+    command: ["python", "-u", "/app/server.py"]

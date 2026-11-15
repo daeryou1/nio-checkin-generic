@@ -1,0 +1,9 @@
+# 凭据与状态, 永远不进 git
+accounts.json
+.env
+data/
+config.json
+
+__pycache__/
+*.pyc
+.DS_Store

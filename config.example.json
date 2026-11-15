@@ -1,0 +1,16 @@
+{
+  "_comment": "可选。不创建此文件则使用内置默认值。protocol 用于接口变更时热修, 全局项为所有账号的默认值。",
+  "hour": 9,
+  "minute": 3,
+  "jitter": 20,
+  "max_retry": 3,
+  "retry_gap": 30,
+  "notify_title_prefix": "蔚来签到",
+  "protocol": {
+    "endpoint": "https://gateway-front-external.nio.com/moat/10086/c/award_cn/checkin",
+    "app_id": "10086",
+    "success_codes": ["success"],
+    "already_codes": ["credit_limit_reached", "already_checked_in", "repeat_checkin"],
+    "auth_fail_codes": ["unauthorized", "token_expired", "invalid_token", "not_login", "auth_failed"]
+  }
+}
